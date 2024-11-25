@@ -9,6 +9,7 @@ const products = [
   { id: 5, name: "Product 5", price: 50 },
 ];
 
+
 // DOM elements
 const productList = document.getElementById("product-list");
 const cartList = document.getElementById("cart-list");
