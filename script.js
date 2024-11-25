@@ -11,28 +11,67 @@ const products = [
 
 // DOM elements
 const productList = document.getElementById("product-list");
+const cartList = document.getElementById("cart-list");
 
 // Render product list
 function renderProducts() {
   products.forEach((product) => {
     const li = document.createElement("li");
-    li.innerHTML = `${product.name} - $${product.price} <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>`;
+    li.innerHTML = `${product.name} - $${product.price} <button class="add-to-cart-btn" data-id="${product.id}" onclick="addToCart(${product.id})">Add to Cart</button>`;
     productList.appendChild(li);
   });
 }
 
+
 // Render cart list
-function renderCart() {}
+function renderCart() {
+	const cartItem = JSON.parse(localStorage.getItem('shopping-cart'));
+	if(cartItem) {
+		cartItem.forEach((product) => {
+	    const li = document.createElement("li");
+	    li.innerHTML = `${product.name} - $${product.price} <button class="add-to-cart-btn" data-id="${product.id}" onclick="removeFromCart(${product.id})">Add to Cart</button>`;
+		cartList.appendChild(li);
+	  });
+	}
+}
+
 
 // Add item to cart
-function addToCart(productId) {}
+let shopping_cart = JSON.parse(localStorage.getItem('shopping-cart')) || [];
+
+function addToCart(productId) {
+	for(let el of products) {
+		if(el.id == productId) {
+			shopping_cart.push(el);
+			localStorage.setItem('shopping-cart', JSON.stringify(shopping_cart));
+			break;
+		}
+	}
+}
+
 
 // Remove item from cart
-function removeFromCart(productId) {}
+function removeFromCart(productId) {
+	let shopping_cart = JSON.parse(localStorage.getItem('shopping-cart'));
+	for(let i=0; i<shopping_cart.length; i++) {
+		if(shopping_cart[i].id == productId) {
+			shopping_cart.splice(i, 1);
+			break;
+		}
+	}
+	localStorage.setItem('shopping-cart', JSON.stringify(shopping_cart));
+}
 
 // Clear cart
-function clearCart() {}
+function clearCart() {
+	localStorage.removeItem("shopping-cart");
+	location.reload();
+}
+
 
 // Initial render
+
 renderProducts();
 renderCart();
+
+
