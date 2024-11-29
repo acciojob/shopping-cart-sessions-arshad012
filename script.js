@@ -31,10 +31,11 @@ function renderCart() {
 		cartItem.forEach((product) => {
 	    const li = document.createElement("li");
 	    li.innerHTML = `${product.name} - $${product.price} <button class="add-to-cart-btn" data-id="${product.id}" onclick="removeFromCart(${product.id})">Add to Cart</button>`;
-		cartList.appendChild(li);
+		cartList.append(li);
 	  });
 	}
 }
+
 
 
 // Add item to cart
