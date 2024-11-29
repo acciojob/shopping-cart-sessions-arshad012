@@ -26,7 +26,7 @@ function renderProducts() {
 
 // Render cart list
 function renderCart() {
-	const cartItem = JSON.parse(localStorage.getItem('shopping-cart'));
+	const cartItem = JSON.parse(sessionStorage.getItem('shopping-cart'));
 	if(cartItem) {
 		cartItem.forEach((product) => {
 	    const li = document.createElement("li");
@@ -38,13 +38,13 @@ function renderCart() {
 
 
 // Add item to cart
-let shopping_cart = JSON.parse(localStorage.getItem('shopping-cart')) || [];
+let shopping_cart = JSON.parse(sessionStorage.getItem('shopping-cart')) || [];
 
 function addToCart(productId) {
 	for(let el of products) {
 		if(el.id == productId) {
 			shopping_cart.push(el);
-			localStorage.setItem('shopping-cart', JSON.stringify(shopping_cart));
+			sessionStorage.setItem('shopping-cart', JSON.stringify(shopping_cart));
 			break;
 		}
 	}
@@ -53,19 +53,19 @@ function addToCart(productId) {
 
 // Remove item from cart
 function removeFromCart(productId) {
-	let shopping_cart = JSON.parse(localStorage.getItem('shopping-cart'));
+	let shopping_cart = JSON.parse(sessionStorage.getItem('shopping-cart'));
 	for(let i=0; i<shopping_cart.length; i++) {
 		if(shopping_cart[i].id == productId) {
 			shopping_cart.splice(i, 1);
 			break;
 		}
 	}
-	localStorage.setItem('shopping-cart', JSON.stringify(shopping_cart));
+	sessionStorage.setItem('shopping-cart', JSON.stringify(shopping_cart));
 }
 
 // Clear cart
 function clearCart() {
-	localStorage.removeItem("shopping-cart");
+	sessionStorage.removeItem("shopping-cart");
 	location.reload();
 }
 
